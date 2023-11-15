@@ -23,6 +23,12 @@ const display = (products, element) => {
   `;
     })
     .join('');
+
+  element.addEventListener('click', (e) => {
+    const target = e.target;
+    const el = target.closest('.product-cart-btn');
+    if (el) addToCart(el?.dataset.id);
+  });
 };
 
 export default display;
