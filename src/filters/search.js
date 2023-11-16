@@ -5,10 +5,15 @@ const setupSearch = (store) => {
   const searchInput = getElement('.search-input');
   form.addEventListener('keyup', (e) => {
     e.preventDefault();
-    const search = searchInput.value;
+    const search = searchInput.value.trim();
     const products = store.filter((product) => {
-      if (product.name.startsWith(search)) return product;
+      if (product.name.startsWith(search.toLowerCase())) return product;
     });
+    if (products.length < 1) {
+      getElement('.products-container').innerHTML =
+        '<h3 class="filter-error">sorry, no products matched your search</h3>';
+      return;
+    }
     display(products, getElement('.products-container'));
   });
 };
