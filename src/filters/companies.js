@@ -13,10 +13,10 @@ const setupCompanies = (shop) => {
     if (companyTarget.classList.contains('company-btn')) {
       const companyName = companyTarget.textContent;
       if (companyName === 'all') {
-        return display(shop, getElement('.products-container'));
+        return display(shop, getElement('.products-container'),true);
       }
       const products = shop.filter((art) => art.company === companyName);
-      display(products, getElement('.products-container'));
+      display(products, getElement('.products-container'),true);
     }
   });
 };

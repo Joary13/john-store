@@ -9,13 +9,25 @@ import setupCompanies from '../filters/companies.js';
 import setupPrice from '../filters/price.js';
 
 // specific imports
-import { store } from '../store.js';
+import { store, setupStore } from '../store.js';
 import display from '../displayProducts.js';
 import { getElement } from '../utils.js';
 
-const loading = document.querySelector('.page-loading');
-display(store, getElement('.products-container'));
-setupSearch(store);
-setupCompanies(store);
-setupPrice(store);
-loading.style.display = 'none';
+// import fetch products
+import fetchProducts from '../fetchProducts.js';
+
+const init = async () => {
+  const loading = document.querySelector('.page-loading');
+  if (store.length < 1) {
+    const results = await fetchProducts();
+    setupStore(results);
+  }
+
+  display(store, getElement('.products-container'));
+  setupSearch(store);
+  setupCompanies(store);
+  setupPrice(store);
+  loading.style.display = 'none';
+};
+
+init();
